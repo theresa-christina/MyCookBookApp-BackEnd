@@ -1,0 +1,224 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+package repositories {
+    interface "@Repository\n User"
+    interface "@Repository\n Note"
+    interface "@Repository\n Photo"
+    interface "@Repository\n Recipe"
+}
+
+package config {
+    class "@Configuration\n S3StorageConfig" {
+        @Value
+        - String accessKey
+        @Value
+        - String accessSecret
+        @Value
+        - String region
+        --
+        @Bean
+        + generateS3Client()
+    }
+}
+
+
+package models {
+    class "@Entity\n Recipe" {
+        @Id
+        @GeneratedValue
+        - Long id
+        - String recipeName
+        - Integer numberServings
+        - List<String> ingredientsList
+        - List<String> preparationSteps
+        @OneToMany
+        - List<Notes> notes
+        @OneToMany
+        - List<Photo> photos
+        @ManyToOne
+        - User user
+        --
+        @Getters
+        @Setters
+    }
+
+    class "@Entity\n Note" {
+        @Id
+        @GeneratedValue
+        - Long id
+        - Date dateCreated
+        - String noteText
+        @ManyToOne
+        - Recipe recipe
+        --
+        @Getters
+        @Setters
+    }
+
+    class "@Entity\n Photo" {
+        @Id
+        @GeneratedValue
+        - Long id
+        - Date dateCooked
+        - String imageDescription
+        - String awsObjectKeyName
+        @ManyToOne
+        - Recipe recipe
+        --
+        @Getters
+        @Setters
+    }
+
+
+    class "@Entity\n User" {
+        @Id
+        @GeneratedValue
+        - Long id
+        - String username
+        - String password
+        @OneToMany
+        - List<Recipe> usersRecipes
+        @OneToMany
+        - List<Recipe> favoriteRecipes
+        --
+        @Getters
+        @Setters
+    }
+}
+
+package controllers {
+    class "@RestController\n ImageStorageController" {
+        @Autowired
+        - ImageStorageService service
+        --
+        @PostMapping
+        + uploadImage()
+        @GetMapping
+        + retrieveImage()
+        @DeleteMapping
+        + deleteImage()
+    }
+
+    class "@RestController\n RecipeController" {
+        @Autowired
+        - RecipeService service
+        --
+        @PostMapping
+        + addRecipe()
+        @GetMapping
+        + getRecipe()
+        @GetMapping
+        + getRecipesForUser()
+        @PutMapping
+        + updateRecipe()
+        @DeleteMapping
+        + deleteRecipe()
+    }
+
+    class "@RestController\n PhotoController" {
+        @Autowired
+        - PhotoService service
+        --
+        @PostMapping
+        + addPhoto()
+        @GetMapping
+        + getPhoto()
+        @GetMapping
+        + getPhotosForRecipe()
+        @PutMapping
+        + updatePhoto()
+        @DeleteMapping
+        + deletePhoto()
+    }
+
+    class "@RestController\n UserController" {
+        @Autowired
+        - UserService service
+        --
+        @PostMapping
+        + addUser()
+        @GetMapping
+        + getUser()
+        @PutMapping
+        + updateUser()
+        @DeleteMapping
+        + deleteUser()
+    }
+
+    class "@RestController\n NoteController" {
+        @Autowired
+        - NoteService service
+        --
+        @PostMapping
+        + addNote()
+        @GetMapping
+        + getNotesForRecipe()
+        @PutMapping
+        + updateNote()
+        @DeleteMapping
+        + deleteNote()
+    }
+}
+
+package services {
+        class "@Service\n ImageStorageService" {
+            @Autowired
+            - S3StorageConfig s3Config
+            --
+            + uploadImage()
+            + retrieveImage()
+            + deleteImage()
+        }
+
+        class "@Service\n RecipeService" {
+            @Autowired
+            - RecipeRepository repository
+            --
+            + addRecipe()
+            + getRecipe()
+            + getRecipesForUser()
+            + updateRecipe()
+            + deleteRecipe()
+        }
+
+        class "@Service\n PhotoService" {
+            @Autowired
+            - PhotoRepository repository
+            --
+            + addPhoto()
+            + getPhoto()
+            + getPhotosForRecipe()
+            + updatePhoto()
+            + deletePhoto()
+        }
+
+        class "@Service\n UserService" {
+            @Autowired
+            - UserRepository repository
+            --
+            + addUser()
+            + getUser()
+            + updateUser()
+            + deleteUser()
+        }
+
+        class "@Service\n NoteService" {
+            @Autowired
+            - NoteRepository repository
+            --
+            + addNote()
+            + getNotesForRecipe()
+            + updateNote()
+            + deleteNote()
+        }
+}
+
+
+
+@enduml
+
+
+
+

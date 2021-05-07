@@ -1,0 +1,11 @@
+
+
+
+application:
+  bucket:
+    name: cookbookpics
+
+
+server:
+  port: 8090
+
