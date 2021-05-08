@@ -33,12 +33,11 @@ package models {
         - Integer numberServings
         - List<String> ingredientsList
         - List<String> preparationSteps
-        @OneToMany
+        @ElementCollection
         - List<Notes> notes
-        @OneToMany
+        @ElementCollection
         - List<Photo> photos
-        @ManyToOne
-        - User user
+        - Long userId
         --
         @Getters
         @Setters
@@ -50,8 +49,7 @@ package models {
         - Long id
         - Date dateCreated
         - String noteText
-        @ManyToOne
-        - Recipe recipe
+        - Long recipeId
         --
         @Getters
         @Setters
@@ -64,8 +62,7 @@ package models {
         - Date dateCooked
         - String imageDescription
         - String awsObjectKeyName
-        @ManyToOne
-        - Recipe recipe
+        - Long recipeId
         --
         @Getters
         @Setters
@@ -78,10 +75,6 @@ package models {
         - Long id
         - String username
         - String password
-        @OneToMany
-        - List<Recipe> usersRecipes
-        @OneToMany
-        - List<Recipe> favoriteRecipes
         --
         @Getters
         @Setters
@@ -114,9 +107,7 @@ package controllers {
         @DeleteMapping
         + deleteRecipe()
         @GetMapping
-        + getPhotosForRecipe()
-        @GetMapping
-        + getNotesForRecipe()
+        + getRecipesForUser()
     }
 
     class "@RestController\n PhotoController" {
@@ -131,6 +122,8 @@ package controllers {
         + updatePhoto()
         @DeleteMapping
         + deletePhoto()
+        @GetMapping
+        + getPhotosForRecipe()
     }
 
     class "@RestController\n UserController" {
@@ -145,8 +138,6 @@ package controllers {
         + updateUser()
         @DeleteMapping
         + deleteUser()
-        @GetMapping
-        + getRecipesForUser()
     }
 
     class "@RestController\n NoteController" {
@@ -159,6 +150,8 @@ package controllers {
         + updateNote()
         @DeleteMapping
         + deleteNote()
+        @GetMapping
+        + getNotesForRecipe()
     }
 }
 
@@ -180,8 +173,7 @@ package services {
             + getRecipe()
             + updateRecipe()
             + deleteRecipe()
-            + getPhotosForRecipe()
-            + getNotesForRecipe()
+            + getRecipesForUser()
         }
 
         class "@Service\n PhotoService" {
@@ -192,6 +184,7 @@ package services {
             + getPhoto()
             + updatePhoto()
             + deletePhoto()
+            + getPhotosForRecipe()
         }
 
         class "@Service\n UserService" {
@@ -202,7 +195,6 @@ package services {
             + getUser()
             + updateUser()
             + deleteUser()
-            + getRecipesForUser()
         }
 
         class "@Service\n NoteService" {
@@ -212,6 +204,7 @@ package services {
             + addNote()
             + updateNote()
             + deleteNote()
+            + getNotesForRecipe()
         }
 }
 
