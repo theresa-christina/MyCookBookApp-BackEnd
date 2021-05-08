@@ -109,12 +109,14 @@ package controllers {
         + addRecipe()
         @GetMapping
         + getRecipe()
-        @GetMapping
-        + getRecipesForUser()
         @PutMapping
         + updateRecipe()
         @DeleteMapping
         + deleteRecipe()
+        @GetMapping
+        + getPhotosForRecipe()
+        @GetMapping
+        + getNotesForRecipe()
     }
 
     class "@RestController\n PhotoController" {
@@ -125,8 +127,6 @@ package controllers {
         + addPhoto()
         @GetMapping
         + getPhoto()
-        @GetMapping
-        + getPhotosForRecipe()
         @PutMapping
         + updatePhoto()
         @DeleteMapping
@@ -145,6 +145,8 @@ package controllers {
         + updateUser()
         @DeleteMapping
         + deleteUser()
+        @GetMapping
+        + getRecipesForUser()
     }
 
     class "@RestController\n NoteController" {
@@ -153,8 +155,6 @@ package controllers {
         --
         @PostMapping
         + addNote()
-        @GetMapping
-        + getNotesForRecipe()
         @PutMapping
         + updateNote()
         @DeleteMapping
@@ -178,9 +178,10 @@ package services {
             --
             + addRecipe()
             + getRecipe()
-            + getRecipesForUser()
             + updateRecipe()
             + deleteRecipe()
+            + getPhotosForRecipe()
+            + getNotesForRecipe()
         }
 
         class "@Service\n PhotoService" {
@@ -189,7 +190,6 @@ package services {
             --
             + addPhoto()
             + getPhoto()
-            + getPhotosForRecipe()
             + updatePhoto()
             + deletePhoto()
         }
@@ -202,6 +202,7 @@ package services {
             + getUser()
             + updateUser()
             + deleteUser()
+            + getRecipesForUser()
         }
 
         class "@Service\n NoteService" {
@@ -209,7 +210,6 @@ package services {
             - NoteRepository repository
             --
             + addNote()
-            + getNotesForRecipe()
             + updateNote()
             + deleteNote()
         }
