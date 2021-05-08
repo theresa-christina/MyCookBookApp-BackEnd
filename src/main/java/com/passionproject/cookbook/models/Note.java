@@ -22,6 +22,5 @@ public class Note {
     private Date dateCreated;
     private String noteText;
 
-    @ManyToOne
-    private Recipe recipe;
+    private Long recipeId;
 }

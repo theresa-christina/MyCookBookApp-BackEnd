@@ -10,7 +10,7 @@ import com.passionproject.cookbook.repositories.RecipeRepository;
 @Service
 public class RecipeService {
 
-    private final RecipeRepository repo;
+    private RecipeRepository repo;
 
     @Autowired
     public RecipeService(RecipeRepository repo) {
@@ -26,27 +26,20 @@ public class RecipeService {
     }
 
     public Recipe getRecipeById(Long id) {
-        return this.repo.getOne(id);
+        return this.repo.findById(id).orElse(null);
     }
 
     public void deleteRecipe(Long id) {
         this.repo.deleteById(id);
     }
 
-    public Iterable<Note> getNotesForRecipe(Long id) {
-        return this.repo.getOne(id).getNotes();
-    }
-
-    public Iterable<Photo> getPhotosForRecipe(Long id) {
-        return this.repo.getOne(id).getPhotos();
-    }
-
     public Recipe updateRecipe(Long id, Recipe recipe) {
-        Recipe recipeToUpdate = this.repo.getOne(id);
+        Recipe recipeToUpdate = this.repo.findById(id).get();
         recipeToUpdate.setRecipeName(recipe.getRecipeName());
         recipeToUpdate.setPreparationSteps(recipe.getPreparationSteps());
         recipeToUpdate.setIngredientsList(recipe.getIngredientsList());
         recipeToUpdate.setNumberServings(recipe.getNumberServings());
+        recipeToUpdate.setUserId(recipe.getUserId());
         return this.repo.save(recipeToUpdate);
     }
 

@@ -42,16 +42,6 @@ public class RecipeController {
         return this.svc.getRecipeById(recipeId) == null;
     }
 
-    @GetMapping("/{recipeId}/notes")
-    public ResponseEntity<Iterable<Note>> findAllNotesByRecipeId(@PathVariable Long recipeId) {
-        return new ResponseEntity<>(this.svc.getNotesForRecipe(recipeId), HttpStatus.OK);
-    }
-
-    @GetMapping("/{recipeId}/photos")
-    public ResponseEntity<Iterable<Photo>> findAllPhotosByRecipeId(@PathVariable Long recipeId) {
-        return new ResponseEntity<>(this.svc.getPhotosForRecipe(recipeId), HttpStatus.OK);
-    }
-
     @PutMapping("/{recipeId}")
     public ResponseEntity<Recipe> updateRecipeById(@PathVariable Long recipeId, @RequestBody Recipe recipe) {
         return new ResponseEntity<>(this.svc.updateRecipe(recipeId, recipe), HttpStatus.OK);

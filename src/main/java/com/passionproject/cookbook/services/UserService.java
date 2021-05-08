@@ -19,8 +19,13 @@ public class UserService {
         return this.repo.save(user);
     }
 
+    // https://www.javacodemonk.com/difference-between-getone-and-findbyid-in-spring-data-jpa-3a96c3ff
     public User getUser(Long id) {
-        return this.repo.getOne(id);
+        return this.repo.findById(id).orElse(null);
+    }
+
+    public Iterable<User> getAllUsers() {
+        return this.repo.findAll();
     }
 
     public void deleteUser(Long id) {
@@ -28,11 +33,10 @@ public class UserService {
     }
 
     public User updateUser(Long id, User user) {
-        User userToUpdate = this.repo.getOne(id);
+        User userToUpdate = this.repo.findById(id).orElse(null);
         userToUpdate.setUsername(user.getUsername());
-        userToUpdate.setFavoriteRecipes(user.getFavoriteRecipes());
+        //userToUpdate.setFavoriteRecipes(user.getFavoriteRecipes());
         userToUpdate.setPassword(user.getPassword());
-        userToUpdate.setUsersRecipes(user.getUsersRecipes());
         return this.repo.save(userToUpdate);
     }
 }

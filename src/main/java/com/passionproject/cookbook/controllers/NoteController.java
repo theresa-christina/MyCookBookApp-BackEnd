@@ -44,4 +44,9 @@ public class NoteController {
     public ResponseEntity<Note> addNewNote(@RequestBody Note note) {
         return new ResponseEntity<>(this.svc.addNote(note), HttpStatus.OK);
     }
+
+    @GetMapping("/recipe/{recipeId}")
+    public ResponseEntity<Iterable<Note>> findAllNotesByRecipeId(@PathVariable Long recipeId) {
+        return new ResponseEntity<>(this.svc.getNotesForRecipe(recipeId), HttpStatus.OK);
+    }
 }

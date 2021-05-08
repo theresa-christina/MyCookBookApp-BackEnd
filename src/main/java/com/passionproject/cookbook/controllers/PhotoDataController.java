@@ -19,6 +19,11 @@ public class PhotoDataController {
         this.svc = svc;
     }
 
+    @GetMapping
+    public ResponseEntity<Iterable<Photo>> findAllPhotos() {
+        return new ResponseEntity<>(this.svc.getAllPhotos(), HttpStatus.CREATED);
+    }
+
     @GetMapping("/{photoDataId}")
     public ResponseEntity<Photo> findPhotoById(@PathVariable Long photoDataId) {
         return new ResponseEntity<>(this.svc.getPhoto(photoDataId), HttpStatus.CREATED);
@@ -38,5 +43,10 @@ public class PhotoDataController {
     @PutMapping("/{photoDataId}")
     public ResponseEntity<Photo> updatePhotoById(@PathVariable Long photoDataId, @RequestBody Photo photo) {
         return new ResponseEntity<>(this.svc.updatePhoto(photoDataId, photo), HttpStatus.OK);
+    }
+
+    @GetMapping("/{recipeId}/photos")
+    public ResponseEntity<Iterable<Photo>> findAllPhotosByRecipeId(@PathVariable Long recipeId) {
+        return new ResponseEntity<>(this.svc.getPhotosForRecipe(recipeId), HttpStatus.OK);
     }
 }

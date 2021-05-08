@@ -28,13 +28,5 @@ public class Recipe {
     @ElementCollection
     private List<String> preparationSteps;
 
-    @OneToMany
-    private List<Note> notes;
-
-    @OneToMany
-    private List<Photo> photos;
-
-    @ManyToOne
-    private User user;
-
+    private Long userId;
 }

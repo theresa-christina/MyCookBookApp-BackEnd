@@ -30,14 +30,14 @@ public class PhotoStorageController {
         return new ResponseEntity<>(this.svc.deleteFile(filename), HttpStatus.OK);
     }
 
-    @GetMapping("/download/{filename}")
+    @GetMapping("/download/name/{filename}")
     public ResponseEntity<ByteArrayResource> getPhotoByName(@PathVariable String filename) {
         byte[] data = this.svc.downloadPhotoByName(filename);
         ByteArrayResource resource = new ByteArrayResource(data);
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
-    @GetMapping("/download/{filename}")
+    @GetMapping("/download/key/{keyName}")
     public ResponseEntity<ByteArrayResource> getPhotoByKey(@PathVariable String keyName) {
         byte[] data = this.svc.downloadPhotoByKey(keyName);
         ByteArrayResource resource = new ByteArrayResource(data);

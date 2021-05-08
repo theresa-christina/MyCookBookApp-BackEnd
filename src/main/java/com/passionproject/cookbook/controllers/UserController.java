@@ -29,6 +29,11 @@ public class UserController {
         return new ResponseEntity<>(this.svc.getUser(userId), HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<Iterable<User>> findAllUsers() {
+        return new ResponseEntity<>(this.svc.getAllUsers(), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{userId}")
     public Boolean deleteUserById(@PathVariable Long userId) {
         this.svc.deleteUser(userId);

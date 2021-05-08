@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -17,13 +15,11 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String username;
-    private String password;
+    Long id;
+    String username;
+    String password;
 
-    @OneToMany
-    private List<Recipe> usersRecipes;
+//    @OneToMany
+//    List<Recipe> favoriteRecipes;
 
-    @OneToMany
-    private List<Recipe> favoriteRecipes;
 }

@@ -22,6 +22,5 @@ public class Photo {
     private String imageDescription;
     private String awsObjectKeyName;
 
-    @ManyToOne
-    private Recipe recipe;
+    private Long recipeId;
 }
