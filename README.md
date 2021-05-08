@@ -1,4 +1,4 @@
-# CookBook App
+# MyCookBook App
 
 ## Tech Stack:
 
@@ -18,3 +18,6 @@
 * Any part of the recipe can be edited by the user later
 * Users can add a recipe from a cookbook by scanning using OCR technology such as Google Vision
 
+## Wireframes 
+
+https://docs.google.com/presentation/d/1MZ5RMkVX5NSsSNnQtSb54lKkOmi3_Ot8hV6pB-7icMA/edit?usp=sharing
