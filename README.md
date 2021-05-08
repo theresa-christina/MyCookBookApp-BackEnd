@@ -1,4 +1,4 @@
-# MyCookBook App
+# MyCookBook Mobile App
 
 ## Tech Stack:
 
